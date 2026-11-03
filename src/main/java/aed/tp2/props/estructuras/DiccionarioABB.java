@@ -2,6 +2,7 @@ package aed.tp2.props.estructuras;
 
 import java.util.ArrayList;
 
+import aed.tp2.props.enums.Categoria;
 import aed.tp2.props.records.UsuarioValor;
 
 public class DiccionarioABB<K extends Comparable<K>, V> {
@@ -58,7 +59,9 @@ public class DiccionarioABB<K extends Comparable<K>, V> {
                 0,
                 null,
                 true,
-                0);
+                0,
+                Categoria.BRONCE
+            );
 
         Nodo nuevoUsuario = new Nodo(key, (V) usr);
 
