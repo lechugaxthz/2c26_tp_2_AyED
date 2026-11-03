@@ -3,7 +3,6 @@ package aed.tp2.props.records;
 import java.util.ArrayList;
 
 public record UsuarioValor(
-    int id, 
     ArrayList<HistorialUsuario> historial, 
     float millas_disponibles, 
     float millas_acumuladas, 
