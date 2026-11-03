@@ -1,4 +1,4 @@
-package aed.tp2.estructuras.enums;
+package aed.tp2.props.enums;
 
 public enum Transaccion {
     VUELO,
