@@ -1,10 +1,5 @@
 package aed.tp2.props.estructuras;
 
-import java.util.ArrayList;
-
-import aed.tp2.props.enums.Categoria;
-import aed.tp2.props.records.UsuarioValor;
-
 public class DiccionarioABB<K extends Comparable<K>, V> {
 
     private Nodo root;
@@ -37,6 +32,10 @@ public class DiccionarioABB<K extends Comparable<K>, V> {
         public V getValue() {
             return value;
         }
+        
+        public void setValue(V value) {
+            this.value = value;
+        }
 
         public Nodo getNodoIzquierdo() {
             return nodoIzquierdo;
@@ -51,47 +50,46 @@ public class DiccionarioABB<K extends Comparable<K>, V> {
         this.root = null;
     }
 
-    public Nodo insertar(K key) {
-        UsuarioValor usr = new UsuarioValor(
-                new ArrayList<>(),
-                0,
-                0,
-                0,
-                null,
-                true,
-                0,
-                Categoria.BRONCE
-            );
-
-        Nodo nuevoUsuario = new Nodo(key, (V) usr);
+    public Nodo insertar(K key, V valor) {
+        
+        Nodo nuevoUsuario = new Nodo(key, valor);
 
         if (root == null) {
             this.root = nuevoUsuario;
             return nuevoUsuario;
         }
 
-        Nodo prev = this.root;
-        Nodo act = this.root;
-        int cmp = 0;
-
-        while (act != null) {
-            cmp = act.key.compareTo(nuevoUsuario.key);
-            prev = act;
-
-            if (cmp >= 0) {
-                act = act.getNodoDerecho();
-                continue;
-            }
-            act = act.getNodoIzquierdo();
-        }
+        Nodo act = obtener(key);
+        int cmp = act.key.compareTo(key);
 
         if (cmp >= 0) {
-            prev.setNodoDerecho(nuevoUsuario);
+            act.setNodoDerecho(nuevoUsuario);
         } else {
-            prev.setNodoIzquierdo(nuevoUsuario);
+            act.setNodoIzquierdo(nuevoUsuario);
         }
 
         return nuevoUsuario;
     }
 
+    public Nodo obtener(K key) {
+        Nodo prev = this.root;
+        Nodo act = this.root;
+        int cmp = act.key.compareTo(key);
+
+        while (act != null) {
+            prev = act;
+            
+            act = (cmp >= 0) 
+            ? act.getNodoDerecho()
+            : act.getNodoIzquierdo();
+            
+            cmp = act.key.compareTo(key);
+        }
+
+        act = (act != null) 
+        ? act 
+        : prev;
+
+        return act;
+    }
 }
