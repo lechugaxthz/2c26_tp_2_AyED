@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import aed.tp2.props.enums.Categoria;
 import aed.tp2.props.estructuras.DiccionarioABB;
 import aed.tp2.props.estructuras.Heap;
-import aed.tp2.props.records.UsuarioValor;
 
 public class Usuarios {
 
