@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import aed.tp2.props.enums.Categoria;
 import aed.tp2.props.estructuras.DiccionarioABB;
 import aed.tp2.props.estructuras.Heap;
+import aed.tp2.props.sub_class.UsuarioValor;
 
 public class Usuarios {
 
     private DiccionarioABB<Integer, UsuarioValor> abbUsuarioPorID;
     
-    private Heap heapUsuarioMaxMillas;
+    private Heap<UsuarioValor> heapUsuarioMaxMillas;
 
     private UsuarioValor usuarioMaxPromos;
 

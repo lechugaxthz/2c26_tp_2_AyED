@@ -1,6 +1,6 @@
 package aed.tp2.props.estructuras;
 
-import aed.tp2.props.records.PromoValor;
+import aed.tp2.props.sub_class.PromoValor;
 
 public class DiccionarioTrie {
 
