@@ -1,30 +1,26 @@
 package aed.tp2;
 
-interface Handle<T>{    
+public interface Handle<K extends Comparable<K>, T>{    
     /**
-     * Devuelve el valor del elemento
+     * Devuelve el indice
      * 
      */
-    public T valor();
+    K getKey();
+    
     
     /**
-     * Elimina al elemento de la colección
      * 
      */
-    public void eliminar();
+    int getIdx();
 
     /**
-     * Modifica al elemento de la colección y su orden (de ser necesario)
-     * 
+     * setea el index en el heap
+     * @param idx
      */
-    public void modificar(T v);
+        void setIdx(int idx);
 
     /**
-     * Devuelve si el valor que representa el Handle es equivalente al que representa otro.
      * 
      */
-    public boolean equals(Handle<T> h);
-
-    
-
+    T getVal();
 }
