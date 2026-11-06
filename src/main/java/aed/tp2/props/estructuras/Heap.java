@@ -7,20 +7,21 @@ public class Heap<T> {
 
     private ArrayList<T> heapArrayList; // Disponibles
     
-    private void intercambiar( Nodo i, Nodo j){
-
+    private void intercambiar( int i, int j ){
+        this.heapArrayList.set(i, this.heapArrayList.get(j) );
+        this.heapArrayList.set(j, this.heapArrayList.get(i));
     }
 
-    private void subirNodo( Nodo i){
-
+    private void subir(int i){
+        
     }
 
-    private void bajarNodo( Nodo i){
+    private void bajar(T i){
 
     }
 
     public void Heap(){
-        this.heapArrayList = new ArrayList<>();
+        this.heapArrayList = new ArrayList<T>();
     }
 
     public T insertar(T elem){

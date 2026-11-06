@@ -37,6 +37,18 @@ public class UsuarioValor{
                         }
     
 
+    public float getMillasDisponibles(){
+        return this.millas_disponibles;
+    }
+
+    public float getMillasAcumuladas(){
+        return this.millas_acumuladas;
+    }
+
+    public Categoria getCategoria(){
+        return this.categoria;
+    }
+
     public int compareTo(UsuarioValor otro){
         if (otro == null){
             String msj = "No podemos comparar con null";
