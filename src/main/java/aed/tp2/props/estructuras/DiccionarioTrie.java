@@ -2,18 +2,18 @@ package aed.tp2.props.estructuras;
 
 import aed.tp2.props.sub_class.PromoValor;
 
-public class DiccionarioTrie {
+public class DiccionarioTrie<T> {
 
-    private DiccionarioTrie[] abcTries;
-
-    private PromoValor valor;
+    private DiccionarioTrie<T>[] abcTries;
+    private T valor;
 
     public DiccionarioTrie(){
             this.abcTries = new DiccionarioTrie[27*2];    // almacenamos mayusculas y minusculas
             this.valor = null;
         }
-
-    public DiccionarioTrie toAbcTries(String str, int _i) {
+    
+    // Devuelve el 
+    public DiccionarioTrie<T> toAbcTries(String str, int _i) {
         if (str.length() < _i)
             return this;
 
@@ -21,14 +21,14 @@ public class DiccionarioTrie {
 
         return this.abcTries[idx] != null
                 ? (this.abcTries[idx]).toAbcTries(str, _i++)
-                : (this.abcTries[idx] = new DiccionarioTrie()).toAbcTries(str, _i++);
+                : (this.abcTries[idx] = new DiccionarioTrie<T>()).toAbcTries(str, _i++);
     }
 
-    public void setValor(PromoValor valor) {
+    public void setValor(T valor) {
         this.valor = valor;
     }
 
-    public PromoValor getValor() {
+    public T getValor() {
         return valor;
     }
 

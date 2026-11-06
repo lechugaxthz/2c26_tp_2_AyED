@@ -54,6 +54,58 @@ public class UsuarioValor implements Comparable<UsuarioValor> {
     public float getMillasDisponibles() {
         return this.millas_disponibles;
     }
+    
+    public float getMillasAcumuladas(){
+        return this.millas_acumuladas;
+    }
+
+    public Categoria getCategoria(){
+        return this.categoria;
+    }
+
+    public float getMillasCanjeadas(){
+        return this.millas_canjeadas;
+    }
+
+    public UsuarioValor getParExclusivo(){
+        return this.par_exclusivo;
+    }
+
+    public boolean getExclusividad(){
+        return  this.exclusion_valida;
+    }
+
+    public void  setMillasDisponibles(float valor){
+        this.millas_disponibles = valor;
+    }
+
+    public void setMillasAcumuladas(float valor){
+        this.millas_acumuladas = valor;
+    }
+
+    public void setCategoria(Categoria valor){
+        this.categoria = valor;
+    }
+
+    public void setMillasCanjeadas(float valor){
+        this.millas_canjeadas = valor;
+    }
+
+    public void setParExclusivo(UsuarioValor valor){
+        this.par_exclusivo = valor;
+    }
+
+    public void setExclusividad(boolean valor){
+        this.exclusion_valida = valor;
+    }
+
+    public ArrayList<HistorialUsuario> getHistorialUsuario(){
+        return this.historial;
+    }
+
+    public int getIdx(){
+        return this.idx;
+    }
 
 
 }
