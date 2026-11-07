@@ -1,8 +1,8 @@
 package aed.tp2.props.estructuras;
-
+import aed.tp2.Diccionario;
 import aed.tp2.props.sub_class.PromoValor;
 
-public class DiccionarioTrie<V> {
+public class DiccionarioTrie<V> implements Diccionario<String, V>{
 
     private DiccionarioTrie<V>[] abcTries;
     private V valor;
@@ -20,7 +20,7 @@ public class DiccionarioTrie<V> {
         return toAbcTries(clave, 0).getValor();
     }
 
-    public DiccionarioTrie<V> toAbcTries(String str, int _i) {
+    private DiccionarioTrie<V> toAbcTries(String str, int _i) {
         if (str.length() == _i)
             return this;
 
