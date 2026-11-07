@@ -20,7 +20,7 @@ public class Usuarios {
 
     public Usuarios() {
         this.abbUsuarioPorID = new DiccionarioABB<>();
-        this.heapUsuarioMaxMillas = new Heap();
+        this.heapUsuarioMaxMillas = new Heap<>();
         this.usuarioMaxPromos = null; 
         this.usuarioMaxMillasDisponibles = null;
     }
