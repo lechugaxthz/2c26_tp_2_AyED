@@ -1,4 +1,4 @@
-package aed.tp2;
+package aed.tp2.props.interfaces;
 
 public interface SistemaAirMiles {
     void registrarUsuario(int id);
