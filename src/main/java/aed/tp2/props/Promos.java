@@ -12,15 +12,15 @@ public class Promos {
     }
 
     public void setpTriesValor(String str, PromoValor val) {
-        this.pTries.toAbcTries(str, 0).setValor(val);
+        this.pTries.insertar(str, val);
     }
 
     public PromoValor getValor(String string) {
-        return this.pTries.toAbcTries(string, 0).getValor();
+        return this.pTries.obtener(string);
     }
 
     public void desactivarPromo(String promoString , boolean valor){
-        this.pTries.toAbcTries(promoString, 0).getValor().activa = false;
+        this.pTries.obtener(promoString).activa = false;
     } 
 
 }

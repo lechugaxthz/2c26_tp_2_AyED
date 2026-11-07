@@ -4,8 +4,8 @@ public class Nodo<K extends Comparable<K>, V> {
         
         private K key;
         private V value;
-        private Nodo nodoIzquierdo;
-        private Nodo nodoDerecho;
+        private Nodo<K, V> nodoIzquierdo;
+        private Nodo<K, V> nodoDerecho;
 
         public Nodo(K key, V val) {
             this.key = key;
@@ -14,11 +14,11 @@ public class Nodo<K extends Comparable<K>, V> {
             this.nodoDerecho = null;
         }
 
-        public void setNodoIzquierdo(Nodo nodoIzquierdo) {
+        public void setNodoIzquierdo(Nodo<K, V> nodoIzquierdo) {
             this.nodoIzquierdo = nodoIzquierdo;
         }
 
-        public void setNodoDerecho(Nodo nodoDerecho) {
+        public void setNodoDerecho(Nodo<K, V> nodoDerecho) {
             this.nodoDerecho = nodoDerecho;
         }
 
@@ -30,11 +30,11 @@ public class Nodo<K extends Comparable<K>, V> {
             return value;
         }
 
-        public Nodo getNodoIzquierdo() {
+        public Nodo<K, V> getNodoIzquierdo() {
             return nodoIzquierdo;
         }
 
-        public Nodo getNodoDerecho() {
+        public Nodo<K, V> getNodoDerecho() {
             return nodoDerecho;
         }
          
