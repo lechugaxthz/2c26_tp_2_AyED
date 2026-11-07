@@ -6,106 +6,137 @@ import aed.tp2.props.enums.Categoria;
 import aed.tp2.props.handlers.HeapUsuarioHandler;
 import aed.tp2.props.records.HistorialUsuario;
 
-public class UsuarioValor implements Comparable<UsuarioValor> {
+public class UsuarioValor {
 
+    private int id;
     private ArrayList<HistorialUsuario> historial;
-    private float millas_disponibles;
-    private float millas_acumuladas;
-    private float millas_canjeadas;
+    private Double millas_disponibles;
+    private Double millas_acumuladas;
+    private Double millas_canjeadas;
     private UsuarioValor par_exclusivo;
     private boolean exclusion_valida;
-    private int idx;
     private Categoria categoria;
     /* handler */
     private HeapUsuarioHandler hUsuario;
 
     public UsuarioValor(
+            int id,
             ArrayList<HistorialUsuario> h,
-            float millas_d,
-            float millas_a,
-            float millas_c,
+            Double millas_d,
+            Double millas_a,
+            Double millas_c,
             UsuarioValor par_exc,
-            boolean exc_val,
-            int idx,
-            Categoria cat
-        ) {
+            boolean exc_val) {
+        this.id = id;
         this.historial = h;
         this.millas_disponibles = millas_d;
         this.millas_acumuladas = millas_a;
         this.millas_canjeadas = millas_c;
         this.par_exclusivo = par_exc;
         this.exclusion_valida = exc_val;
-        this.idx = idx;
-        this.categoria = cat;
+        this.categoria = (millas_acumuladas > 1000000d)
+                ? Categoria.PLATINO
+                : (millas_acumuladas > 5000d)
+                        ? Categoria.ORO
+                        : (millas_acumuladas > 2000d)
+                                ? Categoria.PLATA
+                                : Categoria.BRONCE;
         this.hUsuario = new HeapUsuarioHandler(this);
     }
 
-    @Override
-    public int compareTo(UsuarioValor otro) {
-        // quiza no es necesario porque recibe una instancia de usuario ya. no compila
-        // si no es asi
-        if (otro == null) {
-            String msj = "No podemos comparar con null";
-            throw new IllegalArgumentException(msj);
-        }
-        return Float.compare(otro.millas_disponibles, this.millas_disponibles);
+    public int getId() {
+        return id;
     }
 
-    public float getMillasDisponibles() {
+    public Double getMillasDisponibles() {
         return this.millas_disponibles;
     }
-    
-    public float getMillasAcumuladas(){
+
+    public Double getMillasAcumuladas() {
         return this.millas_acumuladas;
     }
 
-    public Categoria getCategoria(){
+    public Categoria getCategoria() {
         return this.categoria;
     }
 
-    public float getMillasCanjeadas(){
+    public Double getMillasCanjeadas() {
         return this.millas_canjeadas;
     }
 
-    public UsuarioValor getParExclusivo(){
+    public UsuarioValor getParExclusivo() {
         return this.par_exclusivo;
     }
 
-    public boolean getExclusividad(){
-        return  this.exclusion_valida;
+    public boolean getExclusividad() {
+        return this.exclusion_valida;
     }
 
-    public void  setMillasDisponibles(float valor){
-        this.millas_disponibles = valor;
+    private void setMillasDisponibles(Double valor) {
+        this.millas_disponibles += valor;
     }
 
-    public void setMillasAcumuladas(float valor){
-        this.millas_acumuladas = valor;
+    private void setMillasAcumuladas(Double valor) {
+        this.millas_acumuladas += valor;
     }
 
-    public void setCategoria(Categoria valor){
-        this.categoria = valor;
+    private void setMillasCanjeadas(Double valor) {
+        this.millas_canjeadas += valor;
     }
 
-    public void setMillasCanjeadas(float valor){
-        this.millas_canjeadas = valor;
+    private void validaParExclusivo() {
+        UsuarioValor otro = this.historial.get(getHistorialLength() - 1).contraparte().usuario();
+        if (exclusion_valida && (par_exclusivo == otro || par_exclusivo == null)) {
+            par_exclusivo = otro;
+        } else {
+            if (par_exclusivo != null) {
+                par_exclusivo.par_exclusivo = null;
+                par_exclusivo.exclusion_valida = false;
+                par_exclusivo = null;
+                exclusion_valida = false;
+            }
+        }
     }
 
-    public void setParExclusivo(UsuarioValor valor){
-        this.par_exclusivo = valor;
-    }
-
-    public void setExclusividad(boolean valor){
+    private void setExclusividad(boolean valor) {
         this.exclusion_valida = valor;
     }
 
-    public ArrayList<HistorialUsuario> getHistorialUsuario(){
-        return this.historial;
+    public void addNewHistorialUsuario(HistorialUsuario h) {
+        this.historial.add(h);
+
+        switch (h.transaccion()) {
+            case EMISION:
+                setMillasDisponibles(-h.millas_adquiridas());
+                setMillasCanjeadas(h.millas_adquiridas());
+                validaParExclusivo();
+                break;
+            case PROMO:
+                setMillasCanjeadas(h.millas_adquiridas());
+                setMillasDisponibles(-h.millas_adquiridas());
+                break;
+            case RECEPCION:
+                setMillasDisponibles(h.millas_adquiridas());
+                validaParExclusivo();
+                break;
+            case REFERIDO:
+                setMillasDisponibles(h.millas_adquiridas());
+                setMillasAcumuladas(h.millas_adquiridas());
+                break;
+            default: // VUELO
+                setMillasDisponibles(h.millas_adquiridas());
+                setMillasAcumuladas(h.millas_adquiridas());
+                break;
+        }
+
     }
 
-    public int getIdx(){
-        return this.idx;
+    public int getHistorialLength() {
+        return this.historial.size();
     }
 
+    public HeapUsuarioHandler getHandler() {
+        return this.hUsuario;
+    }
 
 }
