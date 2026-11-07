@@ -11,7 +11,7 @@ public class Usuarios {
 
     private DiccionarioABB<Integer, UsuarioValor> abbUsuarioPorID;
     
-    private Heap<UsuarioValor> heapUsuarioMaxMillas;
+    private Heap<Float,UsuarioValor> heapUsuarioMaxMillas;
 
     private UsuarioValor usuarioMaxPromos;
 

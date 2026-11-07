@@ -2,7 +2,7 @@ package aed.tp2.props.comparable;
 
 import java.util.Comparator;
 
-import aed.tp2.props.UsuarioValor;
+import aed.tp2.props.sub_class.UsuarioValor;
 
 public class UsuarioComparable {
     public class UsuarioCmpMillasDisponible implements Comparator<UsuarioValor>{
