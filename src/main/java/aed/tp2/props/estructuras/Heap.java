@@ -6,7 +6,7 @@ import aed.tp2.Handle;
 
 public class Heap<K extends Comparable<K>, T> {
 
-    private ArrayList<Handle<T>> heapArrayList; // Disponibles
+    private ArrayList<Handle<K,T>> heapArrayList; // Disponibles
     
     private void intercambiar( int i, int j ){
         this.heapArrayList.set(i, this.heapArrayList.get(j) );
