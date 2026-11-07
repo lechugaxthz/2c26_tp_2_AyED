@@ -1,34 +1,18 @@
 package aed.tp2;
 
+import aed.tp2.props.Promos;
+import aed.tp2.props.Usuarios;
 import aed.tp2.props.interfaces.SistemaAirMiles;
 
 public class AirMiles implements SistemaAirMiles {
     /*COMPLETAR*/
     
-    /**
-     * podemos implementar 
-     *      * Usuarios
-     *          * PriorityQueue -> porMillasAcumuladas
-     *          * PriorityQueue -> porMillasCanjeadas
-     *          * handler (AVL) -> porIds (handlers de los usuarios)
-     *      
-     *      * Promos
-     *          * Tries 
-     * 
-     * las implementaciones de los mismos iremos viendo si podemos o no usar ciertos tipos de datos
-     * provistos por Java, hasta el momento parece ser que no, pero deje consulta en el Foro para
-     * que nos confirmen si se puede implementar en alguna clase que hacemos
-     * 
-     * lo principal sera enfocarnos en las estructuras, hasta no tenerlas definidas, no nos
-     * vale empezar con las funciones!
-     */
+    private Usuarios usuarios;
+    private Promos promos;
 
-    
-    /**
-     * 
-     */
     public AirMiles() {
-        throw new UnsupportedOperationException("Sin implementar");
+        this.usuarios = new Usuarios();
+        this.promos = new Promos();
     }
 
     public void registrarUsuario(int id) {

@@ -3,7 +3,7 @@ package aed.tp2.props.handlers;
 import aed.tp2.props.interfaces.Handle;
 import aed.tp2.props.sub_class.UsuarioValor;
 
-public class HeapUsuarioHandler implements Handle<Float, UsuarioValor> {
+public class HeapUsuarioHandler implements Handle<Double, UsuarioValor> {
 
     private final UsuarioValor usr;
     private int idx;
@@ -14,7 +14,7 @@ public class HeapUsuarioHandler implements Handle<Float, UsuarioValor> {
     }
     
     @Override
-    public Float getKey() {
+    public Double getKey() {
         return this.usr.getMillasDisponibles();
     }
     
