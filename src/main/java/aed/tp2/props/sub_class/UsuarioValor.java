@@ -21,26 +21,25 @@ public class UsuarioValor {
 
     public UsuarioValor(
             int id,
-            ArrayList<HistorialUsuario> h,
             Double millas_d,
             Double millas_a,
             Double millas_c,
             UsuarioValor par_exc,
             boolean exc_val) {
         this.id = id;
-        this.historial = h;
+        this.historial = new ArrayList<>();
         this.millas_disponibles = millas_d;
         this.millas_acumuladas = millas_a;
         this.millas_canjeadas = millas_c;
         this.par_exclusivo = par_exc;
         this.exclusion_valida = exc_val;
         this.categoria = (millas_acumuladas > 1000000d)
-                ? Categoria.PLATINO
+                ? Categoria.Platino
                 : (millas_acumuladas > 5000d)
-                        ? Categoria.ORO
+                        ? Categoria.Oro
                         : (millas_acumuladas > 2000d)
-                                ? Categoria.PLATA
-                                : Categoria.BRONCE;
+                                ? Categoria.Plata
+                                : Categoria.Bronce;
         this.hUsuario = new HeapUsuarioHandler(this);
     }
 

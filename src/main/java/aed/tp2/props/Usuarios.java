@@ -36,7 +36,6 @@ public class Usuarios {
 
         UsuarioValor usr = new UsuarioValor(
                 id,
-                new ArrayList<>(),
                 0d,
                 0d,
                 0d,
@@ -82,7 +81,7 @@ public class Usuarios {
 
         usrNew.addNewHistorialUsuario(hUsrNew);
         usrRef.addNewHistorialUsuario(hUsrRef);
-
+        
         heapUsuarioMaxMillas.onUpdate(usrNew.getHandler());
         heapUsuarioMaxMillas.onUpdate(usrRef.getHandler());
     }
@@ -192,6 +191,6 @@ public class Usuarios {
     public int[] paresExclusivos(){
         ArrayList<ArrayList<Integer>> pares = new ArrayList<>();;
 
-        return pares.toArray();
+        return new int[10];
     }
 }

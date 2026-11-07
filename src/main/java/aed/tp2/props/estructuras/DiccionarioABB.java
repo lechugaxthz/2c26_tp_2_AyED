@@ -51,7 +51,7 @@ public class DiccionarioABB<K extends Comparable<K>, V> implements Diccionario<K
             ? act.getNodoDerecho()
             : act.getNodoIzquierdo();
             
-            cmp = act.getKey().compareTo(key);
+            cmp = act == null? 0 : act.getKey().compareTo(key);
         }
 
         act = (act != null) 
