@@ -30,6 +30,15 @@ public class Nodo<K extends Comparable<K>, V> {
             return value;
         }
 
+        public void setKey(K elem){
+            this.key = elem;
+        }
+
+        public void setValue(V elem){
+            this.value = elem;
+        }
+
+
         public Nodo<K, V> getNodoIzquierdo() {
             return nodoIzquierdo;
         }

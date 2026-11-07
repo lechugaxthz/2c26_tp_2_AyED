@@ -54,7 +54,7 @@ public class UsuarioValor implements Comparable<UsuarioValor> {
     public float getMillasDisponibles() {
         return this.millas_disponibles;
     }
-    
+
     public float getMillasAcumuladas(){
         return this.millas_acumuladas;
     }
