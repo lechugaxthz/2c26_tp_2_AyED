@@ -6,12 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DiccionarioTrieTests {
 
-    private PromoValor nuevaPromo(float factor, float tope, boolean activa) {
-        PromoValor promo = new PromoValor();
-        promo.factor = factor;
-        promo.tope = tope;
-        promo.tiene_tope = true;
-        promo.activa = activa;
+    private PromoValor nuevaPromo(double factor, double tope, boolean activa) {
+        PromoValor promo = new PromoValor(
+            factor,
+            tope,
+            true,
+            true
+        );
         return promo;
     }
 

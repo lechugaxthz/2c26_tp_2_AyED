@@ -1,89 +1,94 @@
 package aed.tp2;
 
+import aed.tp2.props.Promos;
+import aed.tp2.props.Usuarios;
 import aed.tp2.props.interfaces.SistemaAirMiles;
 
 public class AirMiles implements SistemaAirMiles {
-    /*COMPLETAR*/
-    
-    /**
-     * podemos implementar 
-     *      * Usuarios
-     *          * PriorityQueue -> porMillasAcumuladas
-     *          * PriorityQueue -> porMillasCanjeadas
-     *          * handler (AVL) -> porIds (handlers de los usuarios)
-     *      
-     *      * Promos
-     *          * Tries 
-     * 
-     * las implementaciones de los mismos iremos viendo si podemos o no usar ciertos tipos de datos
-     * provistos por Java, hasta el momento parece ser que no, pero deje consulta en el Foro para
-     * que nos confirmen si se puede implementar en alguna clase que hacemos
-     * 
-     * lo principal sera enfocarnos en las estructuras, hasta no tenerlas definidas, no nos
-     * vale empezar con las funciones!
-     */
+    /* COMPLETAR */
 
-    
-    /**
-     * 
-     */
+    private Usuarios usuarios;
+    private Promos promos;
+
     public AirMiles() {
-        throw new UnsupportedOperationException("Sin implementar");
+        this.usuarios = new Usuarios();
+        this.promos = new Promos();
     }
 
     public void registrarUsuario(int id) {
-        throw new UnsupportedOperationException("Sin implementar");
+        usuarios.agregarUsuario(id);
     }
 
     public void registrarUsuarioConReferidor(int id, int ref) {
-        throw new UnsupportedOperationException("Sin implementar");
+        usuarios.agregarConReferido(id, ref);
     }
 
     public void acumularMillas(int id, double distancia, String nombrePromo) {
-        throw new UnsupportedOperationException("Sin implementar");
+        var promo = promos.getValor(nombrePromo);
+        if (promo != null) {
+            boolean condicional_factor = promo.activa && promo.tiene_tope && promo.tope > 0d;
+            boolean condicional_sin_factor = promo.activa && !promo.tiene_tope;
+            double millas_adquiridas = usuarios.agregarVuelo(
+                    id,
+                    distancia,
+                    (condicional_factor || condicional_sin_factor) ? promo.factor : 1d,
+                    nombrePromo);
+
+            if (condicional_factor) {
+                promo.tope -= millas_adquiridas;
+                promos.setpTriesValor(nombrePromo, promo.factor, promo.tope, promo.tiene_tope);
+            }
+        } else {
+            double millas_adquiridas = usuarios.agregarVuelo(
+                    id,
+                    distancia,
+                    1d,
+                    nombrePromo);
+
+        }
     }
 
     public void canjearMillas(int id, double cantidad) {
-        throw new UnsupportedOperationException("Sin implementar");
+        usuarios.canjeaMillas(id, cantidad);
     }
 
     public void transferirMillas(int origen, int destino, double cantidad) {
-        throw new UnsupportedOperationException("Sin implementar");
+        usuarios.transferir(origen, destino, cantidad);
     }
 
     public double consultarSaldo(int id) {
-        throw new UnsupportedOperationException("Sin implementar");
+        return usuarios.getMillasDisponibles(id);
     }
 
     public String consultarCategoria(int id) {
-       throw new UnsupportedOperationException("Sin implementar");
+        return usuarios.getCategoria(id);
     }
 
     public int[] rankingMillas(int n) {
-        throw new UnsupportedOperationException("Sin implementar");
+        return usuarios.rankMillasDisponibles(n);
     }
 
     public void iniciarPromocion(String nombre, double factor) {
-        throw new UnsupportedOperationException("Sin implementar");
+        promos.setpTriesValor(nombre, factor, 0d, false);
     }
 
     public void iniciarPromocionConTope(String nombre, double factor, double tope) {
-        throw new UnsupportedOperationException("Sin implementar");
+        promos.setpTriesValor(nombre, factor, tope, true);
     }
 
     public void finalizarPromocion(String nombre) {
-        throw new UnsupportedOperationException("Sin implementar");
+        promos.desactivarPromo(nombre);
     }
 
     public int elMasAcumulador() {
-        throw new UnsupportedOperationException("Sin implementar");
+        return usuarios.usuarioMaxAcumulaciones();
     }
 
     public int elMasCanjeador() {
-        throw new UnsupportedOperationException("Sin implementar");
+        return usuarios.usuarioMaxPromos();
     }
 
     public int[][] paresTransferidoresExclusivos() {
-        throw new UnsupportedOperationException("Sin implementar");
+        return new int[0][0];
     }
 }
