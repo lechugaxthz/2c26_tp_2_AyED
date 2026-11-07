@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DiccionarioABBTests {
 
-    private UsuarioValor nuevoUsuario(float millasDisponibles) {
+    private UsuarioValor nuevoUsuario(float millas_iniciales) {
         return new UsuarioValor(
             new ArrayList<>(),
-            millasDisponibles,
-            0,
+            millas_iniciales,
+            millas_iniciales,
             0,
             null,
             true,
