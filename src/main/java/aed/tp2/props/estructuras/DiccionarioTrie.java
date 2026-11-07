@@ -1,5 +1,5 @@
 package aed.tp2.props.estructuras;
-import aed.tp2.Diccionario;
+import aed.tp2.props.interfaces.Diccionario;
 
 public class DiccionarioTrie<V> implements Diccionario<String, V>{
 

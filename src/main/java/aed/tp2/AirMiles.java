@@ -1,5 +1,6 @@
 package aed.tp2;
 
+import aed.tp2.props.interfaces.SistemaAirMiles;
 
 public class AirMiles implements SistemaAirMiles {
     /*COMPLETAR*/

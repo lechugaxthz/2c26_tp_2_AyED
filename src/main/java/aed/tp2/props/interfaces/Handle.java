@@ -1,4 +1,4 @@
-package aed.tp2;
+package aed.tp2.props.interfaces;
 
 public interface Handle<K extends Comparable<K>, T>{    
     /**
@@ -17,7 +17,7 @@ public interface Handle<K extends Comparable<K>, T>{
      * setea el index en el heap
      * @param idx
      */
-        void setIdx(int idx);
+    void setIdx(int idx);
 
     /**
      * 

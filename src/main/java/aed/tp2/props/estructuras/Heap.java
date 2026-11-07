@@ -2,7 +2,7 @@ package aed.tp2.props.estructuras;
 
 import java.util.ArrayList;
 
-import aed.tp2.Handle;
+import aed.tp2.props.interfaces.Handle;
 
 public class Heap<K extends Comparable<K>, T> {
 

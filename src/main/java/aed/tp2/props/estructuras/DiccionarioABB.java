@@ -1,5 +1,5 @@
 package aed.tp2.props.estructuras;
-import aed.tp2.Diccionario;
+import aed.tp2.props.interfaces.Diccionario;
 
 public class DiccionarioABB<K extends Comparable<K>, V> implements Diccionario<K, V> {
 

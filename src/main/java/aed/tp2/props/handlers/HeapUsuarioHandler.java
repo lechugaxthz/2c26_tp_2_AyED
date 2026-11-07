@@ -1,6 +1,6 @@
 package aed.tp2.props.handlers;
 
-import aed.tp2.Handle;
+import aed.tp2.props.interfaces.Handle;
 import aed.tp2.props.sub_class.UsuarioValor;
 
 public class HeapUsuarioHandler implements Handle<Float, UsuarioValor> {

@@ -1,4 +1,4 @@
-package aed.tp2;
+package aed.tp2.props.interfaces;
 
 public interface Diccionario<K, V> {
     /**
