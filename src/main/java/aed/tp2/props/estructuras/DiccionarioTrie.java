@@ -1,14 +1,15 @@
 package aed.tp2.props.estructuras;
 
+import aed.tp2.Diccionario;
 import aed.tp2.props.sub_class.PromoValor;
 
-public class DiccionarioTrie<V> {
+public class DiccionarioTrie<K, V> implements Diccionario<K, V> {
 
-    private DiccionarioTrie<V>[] abcTries;
+    private DiccionarioTrie<K, V>[] abcTries;
     private V valor;
 
     public DiccionarioTrie(){
-            this.abcTries = (DiccionarioTrie<V>[]) new DiccionarioTrie[27*2];    // almacenamos mayusculas y minusculas
+            this.abcTries = (DiccionarioTrie<K, V>[]) new DiccionarioTrie[27*2];    // almacenamos mayusculas y minusculas
             this.valor = null;
         }
 
@@ -20,7 +21,7 @@ public class DiccionarioTrie<V> {
         return toAbcTries(clave, 0).getValor();
     }
 
-    public DiccionarioTrie<V> toAbcTries(String str, int _i) {
+    public DiccionarioTrie<K, V> toAbcTries(String str, int _i) {
         if (str.length() == _i)
             return this;
 
@@ -28,7 +29,7 @@ public class DiccionarioTrie<V> {
 
         return this.abcTries[idx] != null
                 ? (this.abcTries[idx]).toAbcTries(str, _i + 1)
-                : (this.abcTries[idx] = new DiccionarioTrie<V>()).toAbcTries(str, _i + 1);
+                : (this.abcTries[idx] = new DiccionarioTrie<K, V>()).toAbcTries(str, _i + 1);
     }
 
     public void setValor(V valor) {
@@ -38,5 +39,4 @@ public class DiccionarioTrie<V> {
     public V getValor() {
         return valor;
     }
-
 }
