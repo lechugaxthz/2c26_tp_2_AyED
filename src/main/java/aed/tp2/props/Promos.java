@@ -11,15 +11,23 @@ public class Promos {
         this.pTries = new DiccionarioTrie<>();
     }
 
-    public void setpTriesValor(String str, PromoValor val) {
-        this.pTries.insertar(str, val);
+    public void setpTriesValor(String str, double factor, double tope, boolean tiene_tope) {
+        
+        this.pTries.insertar(
+            str, 
+            new PromoValor(
+                factor,
+                tope,
+                tiene_tope,
+                true
+            ));
     }
 
     public PromoValor getValor(String string) {
         return this.pTries.obtener(string);
     }
 
-    public void desactivarPromo(String promoString , boolean valor){
+    public void desactivarPromo(String promoString){
         this.pTries.obtener(promoString).activa = false;
     } 
 

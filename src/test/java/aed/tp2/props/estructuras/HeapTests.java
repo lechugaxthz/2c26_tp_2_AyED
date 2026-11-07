@@ -5,30 +5,30 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import aed.tp2.props.enums.Categoria;
+import aed.tp2.props.enums.Transaccion;
 import aed.tp2.props.handlers.HeapUsuarioHandler;
+import aed.tp2.props.records.HistorialUsuario;
 import aed.tp2.props.sub_class.UsuarioValor;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HeapTests {
 
-    private HeapUsuarioHandler nuevoHandle(float millasIniciales) {
+    private HeapUsuarioHandler nuevoHandle(double millasIniciales) {
         UsuarioValor usr = new UsuarioValor(
-                new ArrayList<>(),
-                millasIniciales,
-                millasIniciales,
                 0,
+                millasIniciales,
+                millasIniciales,
+                0d,
                 null,
-                true,
-                0,
-                Categoria.BRONCE);
+                true);
 
         return new HeapUsuarioHandler(usr);
     }
 
     @Test
     void agregarYObtenerPorIndice() {
-        Heap<Float, UsuarioValor> heap = new Heap<>();
+        Heap<Double, UsuarioValor> heap = new Heap<>();
         HeapUsuarioHandler handle = nuevoHandle(0);
 
         heap.agregar(handle);
@@ -38,7 +38,7 @@ public class HeapTests {
 
     @Test
     void agregarVariosYObtenerPorIndice() {
-        Heap<Float, UsuarioValor> heap = new Heap<>();
+        Heap<Double, UsuarioValor> heap = new Heap<>();
         HeapUsuarioHandler a = nuevoHandle(0);
         HeapUsuarioHandler b = nuevoHandle(500);
 
@@ -51,7 +51,7 @@ public class HeapTests {
 
     @Test
     void elDeMasMillasQuedaArriba() {
-        Heap<Float, UsuarioValor> heap = new Heap<>();
+        Heap<Double, UsuarioValor> heap = new Heap<>();
         HeapUsuarioHandler a = nuevoHandle(500);
         HeapUsuarioHandler b = nuevoHandle(0);
 
@@ -61,7 +61,7 @@ public class HeapTests {
         assertEquals(a, heap.obtener(1));
         assertEquals(b, heap.obtener(2));
 
-        b.getVal().setMillasDisponibles(1000);
+        b.getVal().addNewHistorialUsuario(new HistorialUsuario(Transaccion.VUELO,100d, 500d, null, 1d, null));
         heap.onUpdate(b);
 
         assertEquals(a, heap.obtener(2));
@@ -72,17 +72,17 @@ public class HeapTests {
 
     @Test
     void bajarMillasDelMaximoLoHundeEnElHeap() {
-        Heap<Float, UsuarioValor> heap = new Heap<>();
+        Heap<Double, UsuarioValor> heap = new Heap<>();
         HeapUsuarioHandler a = nuevoHandle(500);
         HeapUsuarioHandler b = nuevoHandle(500);
 
         heap.agregar(a);
         heap.agregar(b);
 
-        a.getVal().setMillasDisponibles(1000);
+        a.getVal().addNewHistorialUsuario(new HistorialUsuario(Transaccion.VUELO,100d, 500d, null, 1d, null));
         heap.onUpdate(a);
 
-        a.getVal().setMillasDisponibles(0);
+        a.getVal().addNewHistorialUsuario(new HistorialUsuario(Transaccion.PROMO,0d, 500d, null, 1d, null));
         heap.onUpdate(a);
 
         assertEquals(a, heap.obtener(2));
