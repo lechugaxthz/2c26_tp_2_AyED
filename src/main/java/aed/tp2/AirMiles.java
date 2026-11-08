@@ -89,6 +89,7 @@ public class AirMiles implements SistemaAirMiles {
     }
 
     public int[][] paresTransferidoresExclusivos() {
-        return new int[0][0];
+        return usuarios.paresExclusivos();
+
     }
 }
