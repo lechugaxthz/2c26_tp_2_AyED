@@ -39,7 +39,7 @@ public class AirMiles implements SistemaAirMiles {
                 promos.setpTriesValor(nombrePromo, promo.factor, promo.tope, promo.tiene_tope);
             }
         } else {
-            double millas_adquiridas = usuarios.agregarVuelo(
+            usuarios.agregarVuelo(
                     id,
                     distancia,
                     1d,

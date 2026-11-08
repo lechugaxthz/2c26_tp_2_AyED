@@ -16,7 +16,7 @@ public class UsuarioValor {
     private Double millas_canjeadas;
     private UsuarioValor par_exclusivo;
     private boolean exclusion_valida;
-    private Categoria categoria;
+
     /* handler */
     private HeapUsuarioHandler hUsuario;
 
@@ -34,13 +34,6 @@ public class UsuarioValor {
         this.millas_canjeadas = millas_c;
         this.par_exclusivo = par_exc;
         this.exclusion_valida = exc_val;
-        this.categoria = (millas_acumuladas > 1000000d)
-                ? Categoria.Platino
-                : (millas_acumuladas > 5000d)
-                        ? Categoria.Oro
-                        : (millas_acumuladas > 2000d)
-                                ? Categoria.Plata
-                                : Categoria.Bronce;
         this.hUsuario = new HeapUsuarioHandler(this);
     }
 
@@ -57,7 +50,13 @@ public class UsuarioValor {
     }
 
     public Categoria getCategoria() {
-        return this.categoria;
+        return (millas_acumuladas >= 1000000d)
+                ? Categoria.Platino
+                : (millas_acumuladas >= 50000d)
+                        ? Categoria.Oro
+                        : (millas_acumuladas >= 10000d)
+                                ? Categoria.Plata
+                                : Categoria.Bronce;
     }
 
     public Double getMillasCanjeadas() {
