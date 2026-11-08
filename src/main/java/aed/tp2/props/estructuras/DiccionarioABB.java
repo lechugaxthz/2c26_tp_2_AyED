@@ -46,10 +46,10 @@ public class DiccionarioABB<K extends Comparable<K>, V> implements Diccionario<K
         Nodo<K, V> act = this.root;
         int cmp = act.getKey().compareTo(key);
 
-        while (act != null) {
+        while (act != null && cmp!= 0) {
             prev = act;
             
-            act = (cmp >= 0) 
+            act = (cmp > 0) 
             ? act.getNodoDerecho()
             : act.getNodoIzquierdo();
             
