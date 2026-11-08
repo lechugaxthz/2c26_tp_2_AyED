@@ -40,6 +40,8 @@ public class DiccionarioABB<K extends Comparable<K>, V> implements Diccionario<K
     }
 
     public Nodo<K, V> obtenerNodo(K key) {
+        if (this.root == null) return null;
+
         Nodo<K, V> prev = this.root;
         Nodo<K, V> act = this.root;
         int cmp = act.getKey().compareTo(key);
