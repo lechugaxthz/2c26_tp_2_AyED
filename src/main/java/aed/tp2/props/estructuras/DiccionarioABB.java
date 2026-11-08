@@ -25,7 +25,12 @@ public class DiccionarioABB<K extends Comparable<K>, V> implements Diccionario<K
         Nodo<K, V> act = obtenerNodo(key);
         int cmp = act.getKey().compareTo(key);
 
-        if (cmp >= 0) {
+        if (cmp == 0) {
+            act.setValue(valor);
+            return act;
+        }
+
+        if (cmp > 0) {
             act.setNodoDerecho(nuevoNodo);
         } else {
             act.setNodoIzquierdo(nuevoNodo);
@@ -36,18 +41,23 @@ public class DiccionarioABB<K extends Comparable<K>, V> implements Diccionario<K
 
     public V obtener(K key) {
         Nodo<K, V> nodo = this.obtenerNodo(key);
-        return nodo.getValue();
+
+        boolean noEsta = nodo == null || nodo.getKey().compareTo(key) != 0;
+
+        return noEsta ? null : nodo.getValue();
     }
 
     public Nodo<K, V> obtenerNodo(K key) {
+        if (this.root == null) return null;
+
         Nodo<K, V> prev = this.root;
         Nodo<K, V> act = this.root;
         int cmp = act.getKey().compareTo(key);
 
-        while (act != null) {
+        while (act != null && cmp!= 0) {
             prev = act;
-            
-            act = (cmp >= 0) 
+
+            act = (cmp > 0) 
             ? act.getNodoDerecho()
             : act.getNodoIzquierdo();
             

@@ -1,10 +1,11 @@
 package aed.tp2.props.sub_class;
-
 import java.util.ArrayList;
 
 import aed.tp2.props.enums.Categoria;
 import aed.tp2.props.handlers.HeapUsuarioHandler;
 import aed.tp2.props.records.HistorialUsuario;
+import aed.tp2.props.interfaces.HandleLista;
+
 
 public class UsuarioValor {
 
@@ -88,10 +89,15 @@ public class UsuarioValor {
             par_exclusivo = otro;
         } else {
             if (par_exclusivo != null) {
-                par_exclusivo.par_exclusivo = null;
-                par_exclusivo.exclusion_valida = false;
-                par_exclusivo = null;
-                exclusion_valida = false;
+                if (this.hPar != null) {
+                    this.hPar.eliminar();            // lo saca de la lista en O(1)
+                    this.hPar = null;
+                    par_exclusivo.hPar = null;       // el otro también se olvida del handle
+                }
+            par_exclusivo.par_exclusivo = null;
+            par_exclusivo.exclusion_valida = false;
+            par_exclusivo = null;
+            exclusion_valida = false;
             }
         }
     }
@@ -136,5 +142,17 @@ public class UsuarioValor {
     public HeapUsuarioHandler getHandler() {
         return this.hUsuario;
     }
+
+    private HandleLista<Integer, int[]> hPar;   
+    // null mientras no esté en un par vigente
+
+    public HandleLista<Integer, int[]> getHandlerPar() {
+        return this.hPar;
+    }
+
+    public void setHandlerPar(HandleLista<Integer, int[]> h) {
+        this.hPar = h;
+    }
+
 
 }

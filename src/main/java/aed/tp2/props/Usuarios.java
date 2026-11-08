@@ -7,8 +7,11 @@ import aed.tp2.props.comparable.UsuarioComparable;
 import aed.tp2.props.enums.Transaccion;
 import aed.tp2.props.estructuras.DiccionarioABB;
 import aed.tp2.props.estructuras.Heap;
+import aed.tp2.props.estructuras.ListaEnlazada;
 import aed.tp2.props.handlers.HeapUsuarioHandler;
 import aed.tp2.props.interfaces.Handle;
+import aed.tp2.props.interfaces.HandleLista;
+import aed.tp2.Iterador;
 import aed.tp2.props.records.Contraparte;
 import aed.tp2.props.records.HistorialUsuario;
 import aed.tp2.props.sub_class.UsuarioValor;
@@ -41,6 +44,9 @@ public class Usuarios {
                 0d,
                 null,
                 true);
+                
+        this.listaPares = new ListaEnlazada<>();
+
         this.abbUsuarioPorID.insertar(id, usr);
 
         this.heapUsuarioMaxMillas.agregar(
@@ -157,11 +163,19 @@ public class Usuarios {
 
         usrOrigen.addNewHistorialUsuario(hUsrOg);
         usrDestino.addNewHistorialUsuario(hUsrDest);
+    
+    boolean sonPar = usrOrigen.getExclusividad()
+        && usrDestino.getExclusividad()
+        && usrOrigen.getParExclusivo() == usrDestino
+        && usrDestino.getParExclusivo() == usrOrigen;
 
-        if (cmpPromos.compare(usuarioMaxPromos, usrOrigen) < 0) {
-            usuarioMaxPromos = usrOrigen;
+    if (sonPar && usrOrigen.getHandlerPar() == null) {   // si ya está en la lista, no lo repito
+        HandleLista<Integer, int[]> h = listaPares.agregarAtras(
+                usrOrigen.getId(),
+                new int[]{ usrOrigen.getId(), usrDestino.getId() });
+        usrOrigen.setHandlerPar(h);
+        usrDestino.setHandlerPar(h);   // los dos usuarios comparten el mismo handle
         }
-
     }
 
     public double getMillasDisponibles(int id) {
@@ -200,10 +214,16 @@ public class Usuarios {
         return usuarioMaxPromos.getId();
     }
 
-    public int[] paresExclusivos() {
-        ArrayList<ArrayList<Integer>> pares = new ArrayList<>();
-        ;
+    private ListaEnlazada<Integer, int[]> listaPares;
 
-        return new int[10];
+    public int[][] paresExclusivos(){
+        int[][] res = new int[listaPares.longitud()][];
+        Iterador<int[]> it = listaPares.iterador();
+        int i = 0;
+        while (it.haySiguiente()) {
+            res[i] = it.siguiente();
+            i++;
+        }
+        return res;
     }
 }
