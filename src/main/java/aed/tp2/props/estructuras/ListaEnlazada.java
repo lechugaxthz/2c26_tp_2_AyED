@@ -1,5 +1,6 @@
 package aed.tp2.props.estructuras;
 
+import aed.tp2.Iterador;
 import aed.tp2.props.interfaces.HandleLista;
 
 public class ListaEnlazada<K extends  Comparable<K> ,V> {
@@ -59,7 +60,7 @@ public class ListaEnlazada<K extends  Comparable<K> ,V> {
         }
 
         if(sig != null){
-            sig.setNodoDerecho(ant);
+            sig.setNodoIzquierdo(ant);
         }else{
             this.ultimo = ant;
         }
@@ -109,10 +110,43 @@ private class HandleLE implements HandleLista<K,V> {
     }
     }
 
+    public int longitud(){
+        return this.cantidad;
+    }
 
+    public class ListaIterador implements Iterador<V>{
+        private Nodo<K,V> actual = primero;
+        private int indiceProx = 0;
 
-    
+        public boolean haySiguiente() {
+            return indiceProx < cantidad;
+        }
+        
+        public boolean hayAnterior(){
+            return indiceProx > 0;
+        }
 
+        public V siguiente() {
+            V data = actual.getValue();
+            actual = actual.getNodoDerecho();
+            indiceProx++;
+            return data;
+        }
+
+        public V anterior(){
+            if (actual == null) {
+                actual = ultimo;
+            } else {
+                actual = actual.getNodoIzquierdo();
+            }
+            indiceProx--;
+            return actual.getValue();
+        }
+    }
+
+    public Iterador<V> iterador() {
+        return new ListaIterador();
+    }
 
 
 }
