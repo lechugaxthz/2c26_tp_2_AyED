@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import aed.tp2.props.comparable.UsuarioComparable;
-import aed.tp2.props.enums.Categoria;
 import aed.tp2.props.enums.Transaccion;
 import aed.tp2.props.estructuras.DiccionarioABB;
 import aed.tp2.props.estructuras.Heap;
 import aed.tp2.props.handlers.HeapUsuarioHandler;
+import aed.tp2.props.interfaces.Handle;
 import aed.tp2.props.records.Contraparte;
 import aed.tp2.props.records.HistorialUsuario;
 import aed.tp2.props.sub_class.UsuarioValor;
@@ -44,7 +44,7 @@ public class Usuarios {
         this.abbUsuarioPorID.insertar(id, usr);
 
         this.heapUsuarioMaxMillas.agregar(
-                new HeapUsuarioHandler(usr));
+                usr.getHandler());
 
         // los iniciamos asi ya no tenemos porque validarlos despues al agregar millas
         if (this.usuarioMaxMillasAcumuladas == null)
@@ -81,7 +81,7 @@ public class Usuarios {
 
         usrNew.addNewHistorialUsuario(hUsrNew);
         usrRef.addNewHistorialUsuario(hUsrRef);
-        
+
         heapUsuarioMaxMillas.onUpdate(usrNew.getHandler());
         heapUsuarioMaxMillas.onUpdate(usrRef.getHandler());
     }
@@ -130,7 +130,7 @@ public class Usuarios {
         heapUsuarioMaxMillas.onUpdate(usr.getHandler());
 
         if (this.cmpPromos.compare(usr, this.usuarioMaxPromos) > 0) {
-            this.usuarioMaxMillasAcumuladas = usr;
+            this.usuarioMaxPromos = usr;
         }
     }
 
@@ -157,6 +157,11 @@ public class Usuarios {
 
         usrOrigen.addNewHistorialUsuario(hUsrOg);
         usrDestino.addNewHistorialUsuario(hUsrDest);
+
+        if (cmpPromos.compare(usuarioMaxPromos, usrOrigen) < 0) {
+            usuarioMaxPromos = usrOrigen;
+        }
+
     }
 
     public double getMillasDisponibles(int id) {
@@ -168,28 +173,36 @@ public class Usuarios {
     }
 
     public int[] rankMillasDisponibles(int n) {
-        n = n >= heapUsuarioMaxMillas.longitud()
-                ? n
-                : heapUsuarioMaxMillas.longitud();
+        n = Math.min(n, heapUsuarioMaxMillas.longitud());
+
+        Handle<Double, UsuarioValor>[] copias = (Handle<Double, UsuarioValor>[]) new Handle<?, ?>[n];
         int[] rank = new int[n];
 
-        for (int i = 0; i < rank.length; i++) {
-            rank[i] = heapUsuarioMaxMillas.obtener(i).getVal().getId();
+        for (int i = 0; i < n; i++) {
+            Handle<Double, UsuarioValor> copiaH = heapUsuarioMaxMillas.extractMaxTemporal();
+            copias[i] = copiaH;
+            rank[i] = copiaH.getVal().getId();
+        }
+
+        for (Handle<Double, UsuarioValor> i : copias) {
+            heapUsuarioMaxMillas.agregar(i);
+            heapUsuarioMaxMillas.onUpdate(i);
         }
 
         return rank;
     }
 
-    public int usuarioMaxAcumulaciones(){
+    public int usuarioMaxAcumulaciones() {
         return usuarioMaxMillasAcumuladas.getId();
     }
 
-    public int usuarioMaxPromos(){
+    public int usuarioMaxPromos() {
         return usuarioMaxPromos.getId();
     }
 
-    public int[] paresExclusivos(){
-        ArrayList<ArrayList<Integer>> pares = new ArrayList<>();;
+    public int[] paresExclusivos() {
+        ArrayList<ArrayList<Integer>> pares = new ArrayList<>();
+        ;
 
         return new int[10];
     }
