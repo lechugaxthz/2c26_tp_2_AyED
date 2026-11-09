@@ -174,6 +174,9 @@ public class Usuarios {
             usrOrigen.setHandlerPar(h);
             usrDestino.setHandlerPar(h); // los dos usuarios comparten el mismo handle
         }
+
+        heapUsuarioMaxMillas.onUpdate(usrOrigen.getHandler());
+        heapUsuarioMaxMillas.onUpdate(usrDestino.getHandler());
     }
 
     public double getMillasDisponibles(int id) {
