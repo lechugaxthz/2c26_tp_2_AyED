@@ -30,7 +30,7 @@ public class ListaEnlazada<K extends  Comparable<K> ,V> {
         return new HandleLE(nuevo);
     }
     // obtener
-    public Nodo<K,V> obtener(K clave){
+    private Nodo<K,V> obtener(K clave){
         if (this.cantidad == 0) {
             return null;
         }
