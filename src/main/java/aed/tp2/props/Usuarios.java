@@ -9,17 +9,9 @@ import aed.tp2.props.estructuras.DiccionarioABB;
 import aed.tp2.props.estructuras.Heap;
 import aed.tp2.props.estructuras.ListaEnlazada;
 import aed.tp2.props.handlers.HeapUsuarioHandler;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import aed.tp2.props.interfaces.Handle;
-=======
-<<<<<<< HEAD
->>>>>>> 679b4db (cambios en usuarios, heap, estructuras y mas...)
-=======
->>>>>>> 40d1d62 (cambios en usuarios, heap, estructuras y mas...)
 import aed.tp2.props.interfaces.HandleLista;
 import aed.tp2.Iterador;
-import aed.tp2.props.interfaces.Handle;
 import aed.tp2.props.records.Contraparte;
 import aed.tp2.props.records.HistorialUsuario;
 import aed.tp2.props.sub_class.UsuarioValor;
@@ -30,7 +22,6 @@ public class Usuarios {
     private Heap<Double, UsuarioValor> heapUsuarioMaxMillas;
     private UsuarioValor usuarioMaxPromos;
     private UsuarioValor usuarioMaxMillasAcumuladas;
-    private ListaEnlazada<Integer, int[]> listaPares;
 
     private Comparator<UsuarioValor> cmpPromos;
     private Comparator<UsuarioValor> cmpMillasAcumuladas;
@@ -42,7 +33,6 @@ public class Usuarios {
         this.usuarioMaxMillasAcumuladas = null;
         this.cmpPromos = new UsuarioComparable.UsuarioCmpPromosCanjeadas();
         this.cmpMillasAcumuladas = new UsuarioComparable.UsuarioCmpMillasAcumuladas();
-        this.listaPares = new ListaEnlazada<>();
     }
 
     public UsuarioValor agregarUsuario(int id) {
@@ -54,6 +44,8 @@ public class Usuarios {
                 0d,
                 null,
                 true);
+                
+        this.listaPares = new ListaEnlazada<>();
 
         this.abbUsuarioPorID.insertar(id, usr);
 
@@ -171,12 +163,6 @@ public class Usuarios {
 
         usrOrigen.addNewHistorialUsuario(hUsrOg);
         usrDestino.addNewHistorialUsuario(hUsrDest);
-<<<<<<< HEAD
-=======
-
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 679b4db (cambios en usuarios, heap, estructuras y mas...)
     
     boolean sonPar = usrOrigen.getExclusividad()
         && usrDestino.getExclusividad()
@@ -190,31 +176,6 @@ public class Usuarios {
         usrOrigen.setHandlerPar(h);
         usrDestino.setHandlerPar(h);   // los dos usuarios comparten el mismo handle
         }
-<<<<<<< HEAD
-=======
-        
-=======
-        if (cmpPromos.compare(usuarioMaxPromos, usrOrigen) < 0) {
-            usuarioMaxPromos = usrOrigen;
-        }
-
->>>>>>> ae14c90 (cambios en usuarios, heap, estructuras y mas...)
->>>>>>> 679b4db (cambios en usuarios, heap, estructuras y mas...)
-=======
-        boolean sonPar = usrOrigen.getExclusividad()
-                && usrDestino.getExclusividad()
-                && usrOrigen.getParExclusivo() == usrDestino
-                && usrDestino.getParExclusivo() == usrOrigen;
-
-        if (sonPar && usrOrigen.getHandlerPar() == null) { // si ya está en la lista, no lo repito
-            HandleLista<Integer, int[]> h = listaPares.agregarAtras(
-                    usrOrigen.getId(),
-                    new int[] { usrOrigen.getId(), usrDestino.getId() });
-            usrOrigen.setHandlerPar(h);
-            usrDestino.setHandlerPar(h); // los dos usuarios comparten el mismo handle
-        }
-
->>>>>>> 40d1d62 (cambios en usuarios, heap, estructuras y mas...)
     }
 
     public double getMillasDisponibles(int id) {
@@ -253,7 +214,9 @@ public class Usuarios {
         return usuarioMaxPromos.getId();
     }
 
-    public int[][] paresExclusivos() {
+    private ListaEnlazada<Integer, int[]> listaPares;
+
+    public int[][] paresExclusivos(){
         int[][] res = new int[listaPares.longitud()][];
         Iterador<int[]> it = listaPares.iterador();
         int i = 0;
