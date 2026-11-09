@@ -68,12 +68,17 @@ public class Heap<K extends Comparable<K>, T> {
 
         int mayor = idx;
 
-        if (handleHI.getKey().compareTo(handleACT.getKey()) > 0) {
-            mayor = hijoI;
+        boolean hayHijoDerecho = handleHD != null;
+        boolean hijoIzqSuperaAlActual = handleHI.getKey().compareTo(handleACT.getKey()) > 0;
+        boolean hijoDerSuperaAlActual = hayHijoDerecho && handleHD.getKey().compareTo(handleACT.getKey()) > 0;
+        boolean hijoDerSuperaAlIzq = hayHijoDerecho && handleHD.getKey().compareTo(handleHI.getKey()) > 0;
 
-            if (handleHD != null && handleHD.getKey().compareTo(handleHI.getKey()) > 0) {
-                mayor = hijoD;
-            }
+        if (hijoIzqSuperaAlActual) {
+            mayor = hijoI;
+        }
+
+        if (hijoDerSuperaAlActual && hijoDerSuperaAlIzq) {
+            mayor = hijoD;
         }
 
         if (mayor == idx)
@@ -111,12 +116,17 @@ public class Heap<K extends Comparable<K>, T> {
 
         int mayor = idx;
 
-        if (handleHI.getKey().compareTo(handleACT.getKey()) >= 0) {
-            mayor = hijoI;
+        boolean hayHijoDerecho = handleHD != null;
+        boolean hijoIzqIgualaOSuperaAlActual = handleHI.getKey().compareTo(handleACT.getKey()) >= 0;
+        boolean hijoDerIgualaOSuperaAlActual = hayHijoDerecho && handleHD.getKey().compareTo(handleACT.getKey()) >= 0;
+        boolean hijoDerIgualaOSuperaAlIzq = hayHijoDerecho && handleHD.getKey().compareTo(handleHI.getKey()) >= 0;
 
-            if (handleHD != null && handleHD.getKey().compareTo(handleHI.getKey()) >= 0) {
-                mayor = hijoD;
-            }
+        if (hijoIzqIgualaOSuperaAlActual) {
+            mayor = hijoI;
+        }
+
+        if (hijoDerIgualaOSuperaAlActual && hijoDerIgualaOSuperaAlIzq) {
+            mayor = hijoD;
         }
 
         if (mayor == idx)
