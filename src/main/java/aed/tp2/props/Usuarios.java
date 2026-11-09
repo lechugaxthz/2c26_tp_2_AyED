@@ -44,7 +44,6 @@ public class Usuarios {
                 0d,
                 null,
                 true);
-                
 
         this.abbUsuarioPorID.insertar(id, usr);
 
@@ -162,18 +161,25 @@ public class Usuarios {
 
         usrOrigen.addNewHistorialUsuario(hUsrOg);
         usrDestino.addNewHistorialUsuario(hUsrDest);
-    
-    boolean sonPar = usrOrigen.getExclusividad()
-        && usrDestino.getExclusividad()
-        && usrOrigen.getParExclusivo() == usrDestino
-        && usrDestino.getParExclusivo() == usrOrigen;
 
-    if (sonPar && usrOrigen.getHandlerPar() == null) {   // si ya está en la lista, no lo repito
-        HandleLista<Integer, int[]> h = listaPares.agregarAtras(
-                usrOrigen.getId(),
-                new int[]{ usrOrigen.getId(), usrDestino.getId() });
-        usrOrigen.setHandlerPar(h);
-        usrDestino.setHandlerPar(h);   // los dos usuarios comparten el mismo handle
+        boolean sonPar = usrOrigen.getExclusividad()
+                && usrDestino.getExclusividad()
+                && usrOrigen.getParExclusivo() == usrDestino
+                && usrDestino.getParExclusivo() == usrOrigen;
+
+        if (sonPar && usrOrigen.getHandlerPar() == null) { // si ya está en la lista, no lo repito
+            HandleLista<Integer, int[]> h = listaPares.agregarAtras(
+                    usrOrigen.getId(),
+                    new int[] { usrOrigen.getId(), usrDestino.getId() });
+            usrOrigen.setHandlerPar(h);
+            usrDestino.setHandlerPar(h); // los dos usuarios comparten el mismo handle
+        }
+
+        heapUsuarioMaxMillas.onUpdate(usrOrigen.getHandler());
+        heapUsuarioMaxMillas.onUpdate(usrDestino.getHandler());
+
+        if (this.cmpPromos.compare(usrOrigen, this.usuarioMaxPromos) > 0) {
+            this.usuarioMaxPromos = usrOrigen;
         }
     }
 
@@ -215,7 +221,7 @@ public class Usuarios {
 
     private ListaEnlazada<Integer, int[]> listaPares;
 
-    public int[][] paresExclusivos(){
+    public int[][] paresExclusivos() {
         int[][] res = new int[listaPares.longitud()][];
         Iterador<int[]> it = listaPares.iterador();
         int i = 0;
