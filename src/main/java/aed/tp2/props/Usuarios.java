@@ -9,9 +9,16 @@ import aed.tp2.props.estructuras.DiccionarioABB;
 import aed.tp2.props.estructuras.Heap;
 import aed.tp2.props.estructuras.ListaEnlazada;
 import aed.tp2.props.handlers.HeapUsuarioHandler;
+<<<<<<< HEAD
 import aed.tp2.props.interfaces.Handle;
+=======
+<<<<<<< HEAD
+>>>>>>> 679b4db (cambios en usuarios, heap, estructuras y mas...)
 import aed.tp2.props.interfaces.HandleLista;
 import aed.tp2.Iterador;
+=======
+import aed.tp2.props.interfaces.Handle;
+>>>>>>> ae14c90 (cambios en usuarios, heap, estructuras y mas...)
 import aed.tp2.props.records.Contraparte;
 import aed.tp2.props.records.HistorialUsuario;
 import aed.tp2.props.sub_class.UsuarioValor;
@@ -163,6 +170,11 @@ public class Usuarios {
 
         usrOrigen.addNewHistorialUsuario(hUsrOg);
         usrDestino.addNewHistorialUsuario(hUsrDest);
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+>>>>>>> 679b4db (cambios en usuarios, heap, estructuras y mas...)
     
     boolean sonPar = usrOrigen.getExclusividad()
         && usrDestino.getExclusividad()
@@ -176,6 +188,16 @@ public class Usuarios {
         usrOrigen.setHandlerPar(h);
         usrDestino.setHandlerPar(h);   // los dos usuarios comparten el mismo handle
         }
+<<<<<<< HEAD
+=======
+        
+=======
+        if (cmpPromos.compare(usuarioMaxPromos, usrOrigen) < 0) {
+            usuarioMaxPromos = usrOrigen;
+        }
+
+>>>>>>> ae14c90 (cambios en usuarios, heap, estructuras y mas...)
+>>>>>>> 679b4db (cambios en usuarios, heap, estructuras y mas...)
     }
 
     public double getMillasDisponibles(int id) {
@@ -214,7 +236,13 @@ public class Usuarios {
         return usuarioMaxPromos.getId();
     }
 
+<<<<<<< HEAD
     private ListaEnlazada<Integer, int[]> listaPares;
+=======
+    public int[] paresExclusivos() {
+        ArrayList<ArrayList<Integer>> pares = new ArrayList<>();
+        ;
+>>>>>>> ae14c90 (cambios en usuarios, heap, estructuras y mas...)
 
     public int[][] paresExclusivos(){
         int[][] res = new int[listaPares.longitud()][];
