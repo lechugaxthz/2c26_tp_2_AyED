@@ -177,6 +177,10 @@ public class Usuarios {
 
         heapUsuarioMaxMillas.onUpdate(usrOrigen.getHandler());
         heapUsuarioMaxMillas.onUpdate(usrDestino.getHandler());
+
+        if (this.cmpPromos.compare(usrOrigen, this.usuarioMaxPromos) > 0) {
+            this.usuarioMaxPromos = usrOrigen;
+        }
     }
 
     public double getMillasDisponibles(int id) {
