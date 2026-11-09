@@ -8,7 +8,6 @@ import aed.tp2.props.enums.Transaccion;
 import aed.tp2.props.estructuras.DiccionarioABB;
 import aed.tp2.props.estructuras.Heap;
 import aed.tp2.props.estructuras.ListaEnlazada;
-import aed.tp2.props.handlers.HeapUsuarioHandler;
 import aed.tp2.props.interfaces.Handle;
 import aed.tp2.props.interfaces.HandleLista;
 import aed.tp2.Iterador;
@@ -33,6 +32,7 @@ public class Usuarios {
         this.usuarioMaxMillasAcumuladas = null;
         this.cmpPromos = new UsuarioComparable.UsuarioCmpPromosCanjeadas();
         this.cmpMillasAcumuladas = new UsuarioComparable.UsuarioCmpMillasAcumuladas();
+        this.listaPares = new ListaEnlazada<>();
     }
 
     public UsuarioValor agregarUsuario(int id) {
@@ -45,7 +45,6 @@ public class Usuarios {
                 null,
                 true);
                 
-        this.listaPares = new ListaEnlazada<>();
 
         this.abbUsuarioPorID.insertar(id, usr);
 
