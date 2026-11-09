@@ -70,10 +70,9 @@ public class Heap<K extends Comparable<K>, T> {
 
         if (handleHI.getKey().compareTo(handleACT.getKey()) > 0) {
             mayor = hijoI;
-
-            if (handleHD != null && handleHD.getKey().compareTo(handleHI.getKey()) > 0) {
-                mayor = hijoD;
-            }
+        }
+        if (handleHD != null && handleHD.getKey().compareTo(heapArrayList.get(mayor).getKey()) > 0) {
+            mayor = hijoD;
         }
 
         if (mayor == idx)
@@ -113,10 +112,9 @@ public class Heap<K extends Comparable<K>, T> {
 
         if (handleHI.getKey().compareTo(handleACT.getKey()) >= 0) {
             mayor = hijoI;
-
-            if (handleHD != null && handleHD.getKey().compareTo(handleHI.getKey()) >= 0) {
-                mayor = hijoD;
-            }
+        }
+        if (handleHD != null && handleHD.getKey().compareTo(heapArrayList.get(mayor).getKey()) >= 0) {
+            mayor = hijoD;
         }
 
         if (mayor == idx)
@@ -135,6 +133,8 @@ public class Heap<K extends Comparable<K>, T> {
             Handle<K, T> ultimoElem = this.heapArrayList.remove(this.heapArrayList.size() - 1);
 
             this.heapArrayList.set(0, ultimoElem);
+
+            ultimoElem.setIdx(0);
 
             shiftDownOnExtractMax(0);
         }

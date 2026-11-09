@@ -134,9 +134,7 @@ public class Usuarios {
 
         heapUsuarioMaxMillas.onUpdate(usr.getHandler());
 
-        if (this.cmpPromos.compare(usr, this.usuarioMaxPromos) > 0) {
-            this.usuarioMaxPromos = usr;
-        }
+        actualizarMasCanjeador(usr);
     }
 
     public void transferir(int usrOg, int usrDest, double monto) {
@@ -162,6 +160,11 @@ public class Usuarios {
 
         usrOrigen.addNewHistorialUsuario(hUsrOg);
         usrDestino.addNewHistorialUsuario(hUsrDest);
+        // se actualiza el heap despues de anadir las transferencias al historial
+        heapUsuarioMaxMillas.onUpdate(usrOrigen.getHandler());
+        heapUsuarioMaxMillas.onUpdate(usrDestino.getHandler());
+        // se actualiza la variable el mas canjeador
+        actualizarMasCanjeador(usrOrigen);
     
     boolean sonPar = usrOrigen.getExclusividad()
         && usrDestino.getExclusividad()
@@ -225,4 +228,11 @@ public class Usuarios {
         }
         return res;
     }
+
+    private void actualizarMasCanjeador( UsuarioValor usr){
+        if (this.cmpPromos.compare(usr, this.usuarioMaxPromos) > 0){
+            this.usuarioMaxPromos = usr;
+        }
+    }
+
 }
