@@ -10,7 +10,6 @@ public class HeapUsuarioHandler implements Handle<Double, UsuarioValor> {
 
     public HeapUsuarioHandler(UsuarioValor usr) {
         this.usr = usr;
-        this.idx = -1;
     }
     
     @Override

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import aed.tp2.props.enums.Categoria;
+import aed.tp2.props.enums.Transaccion;
+import aed.tp2.props.records.HistorialUsuario;
 import aed.tp2.props.sub_class.UsuarioValor;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,17 +55,21 @@ public class DiccionarioABBTests {
         assertNull(usuarios.obtener(1));
     }
 
-    /* @Test
+    @Test
     void modificarUsuarioObtenidoSeReflejaEnElDiccionario() {
         DiccionarioABB<Integer, UsuarioValor> usuarios = new DiccionarioABB<>();
-        usuarios.insertar(5, nuevoUsuario(5,0d));
+        usuarios.insertar(5, nuevoUsuario(5, 500d));
 
-        double nuevasMillas = usuarios.obtener(5).getMillasDisponibles() + 250;
+        usuarios.obtener(5).addNewHistorialUsuario(
+                new HistorialUsuario(
+                        Transaccion.VUELO,
+                        250d,
+                        250d,
+                        null,
+                        1d,
+                        null));
 
-        usuarios.obtener(5).setMillasDisponibles(nuevasMillas);
-        usuarios.obtener(5).setMillasAcumuladas(nuevasMillas);
-
-        assertEquals(250, usuarios.obtener(5).getMillasDisponibles());
-        assertEquals(250, usuarios.obtener(5).getMillasAcumuladas());
-    } */
+        assertEquals(750d, usuarios.obtener(5).getMillasDisponibles());
+        assertEquals(750d, usuarios.obtener(5).getMillasAcumuladas());
+    }
 }
